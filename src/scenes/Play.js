@@ -256,6 +256,11 @@ class Play extends Phaser.Scene {
     updateOxygenBar() {
         this.oxygenBar.width = OXYBAR_UNIT_WIDTH * this.oxygenLevel;
         this.oxygenContainer.width = OXYBAR_UNIT_WIDTH * this.oxygenCapacity + (OXYBAR_MARGIN * 2);
+        if (this.oxygenLevel < 1) {
+            this.oxygenBar.fillColor = 0xff0000;
+        } else {
+            this.oxygenBar.fillColor = 0xffffff;
+        }
     }
 
     doesWorldXYCollide (x, y) {
