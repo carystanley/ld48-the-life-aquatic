@@ -165,6 +165,7 @@ class Play extends Phaser.Scene {
         this.oxygenCapacity = 1;
         this.oxygenLevel = this.oxygenCapacity;
         this.submarineDiving = false;
+        this.startTime = undefined;
     }
 
     update (time, delta) {
@@ -186,6 +187,15 @@ class Play extends Phaser.Scene {
             this.sound.play('powerUp');
         } else if (!this.submarineDiving && (this.player.y >= DIVING_Y)) {
             this.submarineDiving = true;
+            if (!this.startTime) {
+                this.startTime = time;
+                this.tweens.add({
+                    targets: this.gameTitle,
+                    alpha: { start: 1, to: 0 },
+                    duration: 1000,
+                    ease: 'Linear'
+                });
+            }
         }
 
         if (this.submarineDiving) {
