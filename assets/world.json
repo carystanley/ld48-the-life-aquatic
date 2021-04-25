@@ -1287,6 +1287,30 @@
                  "width":0,
                  "x":872,
                  "y":2614
+                }, 
+                {
+                 "height":0,
+                 "id":130,
+                 "name":"rainbow-fish",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":832,
+                 "y":2438
+                }, 
+                {
+                 "height":0,
+                 "id":131,
+                 "name":"shark",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":956,
+                 "y":2990
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1295,7 +1319,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":130,
+ "nextobjectid":132,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

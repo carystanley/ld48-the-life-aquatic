@@ -43,7 +43,8 @@ class Preloader extends Phaser.Scene {
             { key: 'duck-fish', image: 'fish16', start: 8, end: 9, frameRate: 3, repeat: -1 },
             { key: 'clown-fish', image: 'fish16', start: 10, end: 11, frameRate: 3, repeat: -1 },
             { key: 'minnow-fish', image: 'fish16', start: 12, end: 13, frameRate: 3, repeat: -1 },
-            { key: 'crab', image: 'fish16', start: 14, end: 15, frameRate: 3, repeat: -1 }
+            { key: 'crab', image: 'fish16', start: 14, end: 15, frameRate: 3, repeat: -1 },
+            { key: 'rainbow-fish', image: 'fish16', start: 16, end: 17, frameRate: 3, repeat: -1 }
         ]);
 
         this.scene.start('play');

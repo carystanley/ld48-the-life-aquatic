@@ -12,7 +12,9 @@ const fishTypes = [
     'duck-fish',
     'clown-fish',
     'minnow-fish',
-    'crab'
+    'crab',
+    'rainbow-fish',
+    'shark'
 ];
 const SPECIES_COUNT = fishTypes.length;
 
