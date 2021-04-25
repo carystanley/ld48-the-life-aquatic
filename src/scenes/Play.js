@@ -45,7 +45,7 @@ class Play extends Phaser.Scene {
         const music = this.sound.add('mainMusic');
         music.play({
             mute: false,
-            volume: 0.6,
+            volume: 0.4,
             loop: true,
             delay: 0
         });
@@ -194,7 +194,7 @@ class Play extends Phaser.Scene {
 
         this.startY = startPoint.y;
         this.foundFish = [];
-        this.oxygenCapacity = 1;
+        this.oxygenCapacity = 1 + 200;
         this.oxygenLevel = this.oxygenCapacity;
         this.submarineDiving = false;
         this.startTime = undefined;

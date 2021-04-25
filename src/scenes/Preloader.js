@@ -22,6 +22,7 @@ class Preloader extends Phaser.Scene {
         this.load.image('tiles', 'tiles.png');
         this.load.spritesheet('submarine', 'submarine.png', { frameWidth: 72, frameHeight: 48 });
         this.load.spritesheet('fish16', 'fish16.png', { frameWidth: 16, frameHeight: 16 });
+        this.load.spritesheet('shark', 'shark.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('o2tank', 'o2tank.png', { frameWidth: 16, frameHeight: 32 });
         this.load.tilemapTiledJSON('world', 'world.json');
 
@@ -44,7 +45,8 @@ class Preloader extends Phaser.Scene {
             { key: 'clown-fish', image: 'fish16', start: 10, end: 11, frameRate: 3, repeat: -1 },
             { key: 'minnow-fish', image: 'fish16', start: 12, end: 13, frameRate: 3, repeat: -1 },
             { key: 'crab', image: 'fish16', start: 14, end: 15, frameRate: 3, repeat: -1 },
-            { key: 'rainbow-fish', image: 'fish16', start: 16, end: 17, frameRate: 3, repeat: -1 }
+            { key: 'rainbow-fish', image: 'fish16', start: 16, end: 17, frameRate: 3, repeat: -1 },
+            { key: 'shark', image: 'shark', start: 0, end: 0, frameRate: 3, repeat: -1 }
         ]);
 
         this.scene.start('play');
