@@ -29,7 +29,16 @@ class Preloader extends Phaser.Scene {
         this.load.audio('hit', ['sfx/hit.mp3', 'sfx/hit.ogg']);
         this.load.audio('coinPickup', ['sfx/coinPickup.mp3', 'sfx/coinPickup.ogg']);
         this.load.audio('powerUp', ['sfx/powerUp.mp3', 'sfx/powerUp.ogg']);
-        this.load.audio('mainMusic', ['music/main.mp3']);
+
+        this.load.audio('response-1', ['audio/response-1.mp3', 'audio/response-1.ogg']);
+        this.load.audio('response-2', ['audio/response-2.mp3', 'audio/response-2.ogg']);
+        this.load.audio('response-3', ['audio/response-3.mp3', 'audio/response-3.ogg']);
+        this.load.audio('response-aggresive', ['audio/response-aggresive.mp3', 'audio/response-aggresive.ogg']);
+        this.load.audio('response-rainbow', ['audio/response-rainbow.mp3', 'audio/response-rainbow.ogg']);
+        this.load.audio('response-shark', ['audio/response-shark.mp3', 'audio/response-shark.ogg']);
+        this.load.audio('win', ['audio/win.mp3', 'audio/win.ogg']);
+
+        this.load.audio('mainMusic', ['music/main.mp3', 'music/main.ogg']);
 
         this.load.bitmapFont('boxy_bold_8', 'fonts/boxy_bold_8.png', 'fonts/boxy_bold_8.xml');
     }

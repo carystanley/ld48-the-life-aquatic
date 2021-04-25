@@ -305,6 +305,19 @@ class Play extends Phaser.Scene {
             this.foundFish.push(fish.type);
             this.speciesText.setText(this.foundFish.length + '/' + SPECIES_COUNT);
             this.sound.play('coinPickup');
+
+            if (fish.type === 'shark') {
+                this.sound.play('response-shark');
+            } else if (fish.type === 'rainbow-fish') {
+                this.sound.play('response-rainbow');
+            } else if (['piranha-fish', 'angler-fish'].includes(fish.type)) {
+                this.sound.play('response-aggresive');
+            } else {
+                this.sound.play('response-' + (Math.ceil(Math.random() * 3)));
+            }
+        }
+        if (['piranha-fish', 'angler-fish', 'shark'].includes(fish.type)) {
+            this.onCrash();
         }
         // this.player.gotFish()
     }
@@ -328,6 +341,7 @@ class Play extends Phaser.Scene {
         this.winTime.setText(formatTime((this.endTime - this.startTime) / 1000));
         this.winScreen.visible = true;
         this.physics.pause();
+        this.sound.play('win');
         this.input.keyboard.on('keydown-SPACE', function (event) {
             this.music.stop();
             this.scene.restart();
