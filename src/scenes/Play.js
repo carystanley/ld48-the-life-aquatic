@@ -200,7 +200,6 @@ class Play extends Phaser.Scene {
         const progress = Math.max(0, this.player.y - this.startY);
         this.depthOverlay.alpha = progress / 20000;
         this.altitudeText.setText(Math.floor(progress / 1) + 'm');
-
     }
 
     updateOxygenBar() {
