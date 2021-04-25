@@ -22,7 +22,7 @@ const OXYBAR_X = 57;
 const OXYBAR_Y = 208;
 const OXYBAR_MARGIN = 1;
 const OXYBAR_HEIGHT = 5;
-const OXYBAR_UNIT_WIDTH = 12;
+const OXYBAR_UNIT_WIDTH = 10;
 const OXYBAR_RATE = 1/10;
 
 const DIVING_Y = 40;
