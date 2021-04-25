@@ -1,3 +1,5 @@
+/* global ga */
+
 import Player from '../entities/Player.js';
 import Fish from '../entities/Fish.js';
 import OxygenTank from '../entities/OxygenTank.js';
@@ -212,6 +214,7 @@ class Play extends Phaser.Scene {
                     duration: 1000,
                     ease: 'Linear'
                 });
+                ga('send', 'event', 'start', 'begin')
             }
         }
 
@@ -271,11 +274,13 @@ class Play extends Phaser.Scene {
     onWin() {
         this.winScreen.visible = true;
         this.physics.pause();
+        ga('send', 'event', 'gameover', 'win')
     }
 
     onLose() {
         this.failScreen.visible = true;
         this.physics.pause();
+        ga('send', 'event', 'gameover', 'lose')
     }
 }
 
