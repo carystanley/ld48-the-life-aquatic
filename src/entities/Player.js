@@ -6,8 +6,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.setDrag(10, 10)
             .setMaxVelocity(250, 500)
-            .setSize(60, 40)
-            .setOffset(6, 7)
+            .setSize(58, 21)
+            .setOffset(8, 18)
             .setCollideWorldBounds(true);
 
         this.cursors = scene.input.keyboard.createCursorKeys();
