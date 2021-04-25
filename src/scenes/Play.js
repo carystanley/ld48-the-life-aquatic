@@ -40,7 +40,6 @@ class Play extends Phaser.Scene {
 
     create (config) {
         const camera = this.cameras.main;
-        /*
         const music = this.sound.add('mainMusic');
         music.play({
             mute: false,
@@ -48,7 +47,6 @@ class Play extends Phaser.Scene {
             loop: true,
             delay: 0
         });
-*/
 
         const map = this.make.tilemap({ key: 'world' });
         const tileset = map.addTilesetImage('tiles', 'tiles');
@@ -288,7 +286,7 @@ class Play extends Phaser.Scene {
         if (!(this.player.hurtCount > 0)) {
             this.cameras.main.shake(300, 0.01);
             this.sound.play('hit');
-            this.player.hurtCount = 4;
+            this.player.hurtCount = 2;
         }
     }
 
