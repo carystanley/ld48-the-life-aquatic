@@ -26,6 +26,13 @@ const OXYBAR_RATE = 1/10;
 const DIVING_Y = 40;
 
 
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const secounds = Math.floor(time % 60);
+    return (minutes + ':' + (secounds + '').padStart(2, '0'));
+}
+
+
 class Play extends Phaser.Scene {
     constructor (config) {
         super({ key: 'play' });
@@ -158,6 +165,17 @@ class Play extends Phaser.Scene {
         winText.depth = 40;
         winText.scale = 2;
         this.winScreen.add(winText);
+        this.winTime = this.add.bitmapText(128, 120, 'boxy_bold_8');
+        this.winTime.setOrigin(0.5, 0);
+        this.winTime.setText('0:00');
+        this.winTime.depth = 40;
+        this.winTime.scale = 4;
+        this.winScreen.add(this.winTime);
+        const ctoText = this.add.bitmapText(128, 157, 'boxy_bold_8');
+        ctoText.setText('Share Your Time');
+        ctoText.setOrigin(0.5, 0);
+        ctoText.depth = 40;
+        this.winScreen.add(ctoText);
         this.winScreen.visible = false;
 
 
@@ -200,6 +218,7 @@ class Play extends Phaser.Scene {
             this.oxygenLevel = this.oxygenCapacity;
             this.sound.play('powerUp');
             if (this.foundFish.length >= SPECIES_COUNT) {
+                this.endTime = time;
                 this.onWin()
             }
         } else if (!this.submarineDiving && (this.player.y >= DIVING_Y)) {
@@ -231,10 +250,7 @@ class Play extends Phaser.Scene {
         this.depthOverlay.alpha = progress / 20000;
         this.altitudeText.setText(Math.floor(progress / 1) + 'm');
 
-        const diff = (time - this.startTime) / 1000;
-        const minutes = Math.floor(diff / 60);
-        const secounds = Math.floor(diff % 60);
-        this.timerText.setText(minutes + ':' + (secounds + '').padStart(2, '0'));
+        this.timerText.setText(formatTime((time - this.startTime) / 1000));
     }
 
     updateOxygenBar() {
@@ -272,6 +288,7 @@ class Play extends Phaser.Scene {
     }
 
     onWin() {
+        this.winTime.setText(formatTime((this.endTime - this.startTime) / 1000));
         this.winScreen.visible = true;
         this.physics.pause();
         ga('send', 'event', 'gameover', 'win')
