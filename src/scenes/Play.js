@@ -20,7 +20,7 @@ const OXYBAR_X = 57;
 const OXYBAR_Y = 208;
 const OXYBAR_MARGIN = 1;
 const OXYBAR_HEIGHT = 5;
-const OXYBAR_UNIT_WIDTH = 20;
+const OXYBAR_UNIT_WIDTH = 12;
 const OXYBAR_RATE = 1/10;
 
 const DIVING_Y = 40;
@@ -44,11 +44,11 @@ class Play extends Phaser.Scene {
         const music = this.sound.add('mainMusic');
         music.play({
             mute: false,
-            volume: 1,
+            volume: 0.6,
             loop: true,
             delay: 0
         });
-        */
+*/
 
         const map = this.make.tilemap({ key: 'world' });
         const tileset = map.addTilesetImage('tiles', 'tiles');
@@ -300,6 +300,7 @@ class Play extends Phaser.Scene {
     }
 
     onLose() {
+        this.sound.play('hit');
         this.failScreen.visible = true;
         this.physics.pause();
         ga('send', 'event', 'gameover', 'lose')
