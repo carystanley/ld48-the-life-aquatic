@@ -76,18 +76,21 @@ class Play extends Phaser.Scene {
         this.hud = this.add.container(0, 0);
         this.hud.depth = 40;
         this.hud.setScrollFactor(0);
+
         const altitudeLabel = this.add.bitmapText(10, 10, 'boxy_bold_8');
         altitudeLabel.setText('Depth');
         this.hud.add(altitudeLabel);
         this.altitudeText = this.add.bitmapText(70, 10, 'boxy_bold_8');
         this.altitudeText.setRightAlign();
         this.hud.add(this.altitudeText);
+
         const speciesLabel = this.add.bitmapText(160, 10, 'boxy_bold_8');
         speciesLabel.setText('Species');
         this.hud.add(speciesLabel);
         this.speciesText = this.add.bitmapText(220, 10, 'boxy_bold_8');
         this.speciesText.setText(0 + '/' + SPECIES_COUNT);
         this.hud.add(this.speciesText);
+
         const oxygenLabel = this.add.bitmapText(10, 206, 'boxy_bold_8');
         oxygenLabel.setText('Oxygen');
         this.hud.add(oxygenLabel);
@@ -109,6 +112,15 @@ class Play extends Phaser.Scene {
         );
         this.oxygenBar.setOrigin(0, 0);
         this.hud.add(this.oxygenBar);
+
+        this.timerLabel = this.add.bitmapText(180, 206, 'boxy_bold_8');
+        this.timerLabel.setText('Time');
+        this.timerLabel.visible = false;
+        this.hud.add(this.timerLabel);
+        this.timerText = this.add.bitmapText(220, 206, 'boxy_bold_8');
+        this.timerText.setText('0:00');
+        this.timerText.visible = false;
+        this.hud.add(this.timerText);
 
         // Title Screen
         this.gameTitle = this.add.container(0, 0);
@@ -185,10 +197,15 @@ class Play extends Phaser.Scene {
             this.submarineDiving = false;
             this.oxygenLevel = this.oxygenCapacity;
             this.sound.play('powerUp');
+            if (this.foundFish.length >= SPECIES_COUNT) {
+                this.onWin()
+            }
         } else if (!this.submarineDiving && (this.player.y >= DIVING_Y)) {
             this.submarineDiving = true;
             if (!this.startTime) {
                 this.startTime = time;
+                this.timerLabel.visible = true;
+                this.timerText.visible = true;
                 this.tweens.add({
                     targets: this.gameTitle,
                     alpha: { start: 1, to: 0 },
@@ -210,6 +227,11 @@ class Play extends Phaser.Scene {
         const progress = Math.max(0, this.player.y - this.startY);
         this.depthOverlay.alpha = progress / 20000;
         this.altitudeText.setText(Math.floor(progress / 1) + 'm');
+
+        const diff = (time - this.startTime) / 1000;
+        const minutes = Math.floor(diff / 60);
+        const secounds = Math.floor(diff % 60);
+        this.timerText.setText(minutes + ':' + (secounds + '').padStart(2, '0'));
     }
 
     updateOxygenBar() {
@@ -227,9 +249,6 @@ class Play extends Phaser.Scene {
             this.foundFish.push(fish.type);
             this.speciesText.setText(this.foundFish.length + '/' + SPECIES_COUNT);
             this.sound.play('coinPickup');
-            if (this.foundFish.length >= SPECIES_COUNT) {
-                this.onWin()
-            }
         }
         // this.player.gotFish()
     }
