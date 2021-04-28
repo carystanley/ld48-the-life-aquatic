@@ -272,10 +272,13 @@ class Play extends Phaser.Scene {
     updateOxygenBar() {
         this.oxygenBar.width = OXYBAR_UNIT_WIDTH * this.oxygenLevel;
         this.oxygenContainer.width = OXYBAR_UNIT_WIDTH * this.oxygenCapacity + (OXYBAR_MARGIN * 2);
-        if (this.oxygenLevel < 1) {
+        const percent = this.oxygenLevel / this.oxygenCapacity;
+        if (percent < 0.25) {
             this.oxygenBar.fillColor = 0xff0000;
+        } else if (percent < 0.5) {
+            this.oxygenBar.fillColor = 0xffff00;
         } else {
-            this.oxygenBar.fillColor = 0xffffff;
+            this.oxygenBar.fillColor = 0xaaaaff;
         }
     }
 
