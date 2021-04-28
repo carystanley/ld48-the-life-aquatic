@@ -100,6 +100,11 @@ class Play extends Phaser.Scene {
         this.speciesText.setText(0 + '/' + SPECIES_COUNT);
         this.hud.add(this.speciesText);
 
+        const speciesContainer = this.add.graphics();
+        speciesContainer.lineStyle(1, 0xffffff, 1);
+        speciesContainer.strokeRect(110.5, 6.5, 136, 16);
+        this.hud.add(speciesContainer);
+
         const oxygenLabel = this.add.bitmapText(10, 206, 'boxy_bold_8');
         oxygenLabel.setText('Oxygen');
         this.hud.add(oxygenLabel);
