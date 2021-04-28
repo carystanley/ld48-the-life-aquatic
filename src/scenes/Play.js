@@ -59,8 +59,8 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 0;
         this.worldLayer = worldLayer;
 
-        const startPoint = map.findObject('objects', obj => obj.name === 'start');
-        this.player = new Player(this, startPoint.x, startPoint.y);
+        this.startPoint = map.findObject('objects', obj => obj.name === 'start');
+        this.player = new Player(this, this.startPoint.x, this.startPoint.y);
         this.playerWorldCollider = this.physics.add.collider(this.player, worldLayer, this.onCrash, null, this);
 
         this.fishies = this.add.group();
@@ -155,7 +155,7 @@ class Play extends Phaser.Scene {
         failText.scale = 2;
         this.failScreen.add(failText);
         const retryText = this.add.bitmapText(128, 127, 'boxy_bold_8');
-        retryText.setText('Press SPACE to try again');
+        retryText.setText('Press SPACE to continue');
         retryText.setOrigin(0.5, 0);
         retryText.depth = 40;
         this.tweens.add({
@@ -224,7 +224,7 @@ class Play extends Phaser.Scene {
         camera.setDeadzone(40, 20);
         camera.startFollow(this.player, true);
 
-        this.startY = startPoint.y;
+        this.startY = this.startPoint.y;
         this.foundFish = [];
         this.oxygenCapacity = 1;
         this.oxygenLevel = this.oxygenCapacity;
@@ -354,8 +354,13 @@ class Play extends Phaser.Scene {
         this.failScreen.visible = true;
         this.physics.pause();
         this.input.keyboard.on('keydown-SPACE', function (event) {
-            this.music.stop();
-            this.scene.restart();
+            this.failScreen.visible = false;
+            this.physics.resume();
+            this.oxygenLevel = this.oxygenCapacity;
+            this.player.x = this.startPoint.x;
+            this.player.y = this.startPoint.y;
+            this.player.setVelocity(0, 0)
+            this.player.setFlipX(false);
         }, this);
         ga('send', 'event', 'gameover', 'lose')
     }
