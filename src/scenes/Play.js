@@ -93,12 +93,13 @@ class Play extends Phaser.Scene {
         this.altitudeText.setRightAlign();
         this.hud.add(this.altitudeText);
 
-        const speciesLabel = this.add.bitmapText(160, 10, 'boxy_bold_8');
-        speciesLabel.setText('Species');
-        this.hud.add(speciesLabel);
-        this.speciesText = this.add.bitmapText(220, 10, 'boxy_bold_8');
-        this.speciesText.setText(0 + '/' + SPECIES_COUNT);
-        this.hud.add(this.speciesText);
+        this.foundSprites = [];
+        for (var i = 0; i < SPECIES_COUNT; i++) {
+            let foundSprite = this.add.sprite(246 - (i * 13), 10, 'collection');
+            foundSprite.anims.play('found-empty', true);
+            this.hud.add(foundSprite);
+            this.foundSprites.push(foundSprite);
+        }
 
         const oxygenLabel = this.add.bitmapText(10, 206, 'boxy_bold_8');
         oxygenLabel.setText('Oxygen');
@@ -287,10 +288,16 @@ class Play extends Phaser.Scene {
         return tile && tile.collides;
     }
 
+    updateHudFoundFish() {
+        for (var i = 0; i < SPECIES_COUNT; i++) {
+            this.foundSprites[i].anims.play('found-' + (this.foundFish[i] || 'empty'));
+        }
+    }
+
     playerGotFish(player, fish) {
         if (!this.foundFish.includes(fish.type)) {
             this.foundFish.push(fish.type);
-            this.speciesText.setText(this.foundFish.length + '/' + SPECIES_COUNT);
+            this.updateHudFoundFish();
             this.sound.play('coinPickup');
 
             if (fish.type === 'shark') {
