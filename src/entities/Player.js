@@ -4,7 +4,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         scene.add.existing(this);
 
-        this.setDrag(10, 10)
+        this.setDrag(50, 50)
             .setMaxVelocity(250, 500)
             .setSize(58, 21)
             .setOffset(8, 18)
@@ -19,8 +19,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     update(time, delta) {
         const { cursors } = this;
 
-        const accelerationX = 40;
-        const accelerationY = 40;
+        const accelerationX = 80;
+        const accelerationY = 80;
 
         if (this.hurtCount > 0) {
             this.hurtCount -= (delta / 1000);
