@@ -211,6 +211,8 @@ class Play extends Phaser.Scene {
 
         this.startY = this.startPoint.y;
         this.foundFish = [];
+        this.savedFoundFish = [];
+        this.powerUpResetQueue = [];
         this.oxygenCapacity = 1;
         this.oxygenLevel = this.oxygenCapacity;
         this.submarineDiving = false;
@@ -234,6 +236,8 @@ class Play extends Phaser.Scene {
             this.submarineDiving = false;
             this.oxygenLevel = this.oxygenCapacity;
             this.sound.play('powerUp');
+            this.savedFoundFish = this.foundFish.slice();
+            this.powerUpResetQueue = [];
             if (this.foundFish.length >= SPECIES_COUNT) {
                 this.endTime = time;
                 this.onWin()
@@ -318,7 +322,10 @@ class Play extends Phaser.Scene {
 
     playerGotPowerUp(player, powerup) {
         this.sound.play('powerUp');
-        powerup.destroy();
+        powerup.setVisible(false);
+        powerup.setActive(false);
+        powerup.body.enable = false;
+        this.powerUpResetQueue.push(powerup);
         this.oxygenLevel++;
         this.oxygenCapacity++;
     }
@@ -350,7 +357,19 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(3000, () => {
             this.failScreen.visible = false;
             this.physics.resume();
+
             this.oxygenLevel = this.oxygenCapacity;
+            this.foundFish = this.savedFoundFish.slice();
+            this.updateHudFoundFish();
+            this.powerUpResetQueue.forEach((powerup) => {
+                powerup.setVisible(true);
+                powerup.setActive(true);
+                powerup.body.enable = true;
+                this.oxygenCapacity--;
+            });
+            this.oxygenLevel = this.oxygenCapacity;
+            this.powerUpResetQueue = [];
+
             this.player.x = this.startPoint.x;
             this.player.y = this.startPoint.y;
             this.player.setVelocity(0, 0)
