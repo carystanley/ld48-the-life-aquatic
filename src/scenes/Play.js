@@ -154,22 +154,6 @@ class Play extends Phaser.Scene {
         failText.depth = 40;
         failText.scale = 2;
         this.failScreen.add(failText);
-        const retryText = this.add.bitmapText(128, 127, 'boxy_bold_8');
-        retryText.setText('Press SPACE to continue');
-        retryText.setOrigin(0.5, 0);
-        retryText.depth = 40;
-        this.tweens.add({
-            targets: retryText,
-            alpha: 0,
-            duration: 500,
-            ease: 'Power2',
-            yoyo: true,
-            loop: 1000000,
-            ease: function (t) {
-                return (t > 0.5) ? 1 : 0;
-            }
-        });
-        this.failScreen.add(retryText);
         this.failScreen.visible = false;
 
 
@@ -353,7 +337,7 @@ class Play extends Phaser.Scene {
         this.sound.play('hit');
         this.failScreen.visible = true;
         this.physics.pause();
-        this.input.keyboard.on('keydown-SPACE', function (event) {
+        this.time.delayedCall(3000, () => {
             this.failScreen.visible = false;
             this.physics.resume();
             this.oxygenLevel = this.oxygenCapacity;
