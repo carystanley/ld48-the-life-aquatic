@@ -1,0 +1,13 @@
+# Notes
+
+## Dimensions
+
+Screen
+width: 256,
+height: 224,
+
+Game should be at least 3 screens wide & 10 screen deep (maybe 6 x 20)
+256 * 6 = 1536 / 32 = 48
+224 * 20 = 4480 / 32 = 140
+
+Max at 2000m under the sea
